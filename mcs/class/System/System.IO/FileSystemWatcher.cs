@@ -430,13 +430,13 @@ namespace System.IO {
 				foreach (var target in ev.GetInvocationList()) {
 					switch (evtype) {
 					case EventType.RenameEvent:
-						((RenamedEventHandler)target).Invoke (this, (RenamedEventArgs)arg);
+						((RenamedEventHandler)target).BeginInvoke (this, (RenamedEventArgs)arg, null, null);
 						break;
 					case EventType.ErrorEvent:
-						((ErrorEventHandler)target).Invoke (this, (ErrorEventArgs)arg);
+						((ErrorEventHandler)target).BeginInvoke (this, (ErrorEventArgs)arg, null, null);
 						break;
 					case EventType.FileSystemEvent:
-						((FileSystemEventHandler)target).Invoke (this, (FileSystemEventArgs)arg);
+						((FileSystemEventHandler)target).BeginInvoke (this, (FileSystemEventArgs)arg, null, null);
 						break;
 					}
 				}
