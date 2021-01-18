@@ -5608,14 +5608,21 @@ namespace System.Windows.Forms {
 						scans = region.GetRegionScans(m);
 					rects = new XRectangle[scans.Length];
 					for (int i = 0; i < scans.Length; i++) {
-						rects[i].X = (short) Math.Clamp(scans[i].X, short.MinValue, short.MaxValue);
-						rects[i].Y = (short) Math.Clamp(scans[i].Y, short.MinValue, short.MaxValue);
-						rects[i].Width = (ushort) Math.Clamp(scans[i].Width, ushort.MinValue, ushort.MaxValue);
-						rects[i].Height = (ushort) Math.Clamp(scans[i].Height, ushort.MinValue, ushort.MaxValue);
+						rects[i].X = (short) Clamp(scans[i].X, short.MinValue, short.MaxValue);
+						rects[i].Y = (short) Clamp(scans[i].Y, short.MinValue, short.MaxValue);
+						rects[i].Width = (ushort) Clamp(scans[i].Width, ushort.MinValue, ushort.MaxValue);
+						rects[i].Height = (ushort) Clamp(scans[i].Height, ushort.MinValue, ushort.MaxValue);
 					}
 				}
 				XShapeCombineRectangles(DisplayHandle, hwnd.WholeWindow, XShapeKind.ShapeBounding, 0, 0, rects, rects.Length, XShapeOperation.ShapeSet, XOrdering.Unsorted);
 			}
+		}
+
+		public static T Clamp<T>(T val, T min, T max) where T : IComparable<T>
+		{
+			if (val.CompareTo(min) < 0) return min;
+			else if(val.CompareTo(max) > 0) return max;
+			else return val;
 		}
 
 		internal override void SetCursor(IntPtr handle, IntPtr cursor)
